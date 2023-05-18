@@ -1,43 +1,40 @@
-function priceCalculator() {
+// km
+let km = prompt ('inserisci km')
 
-    // KM
-    let km = parseInt(prompt("Inserisci il numero di km da percorrere"));
-    console.log(km + 'km');
+// età
+let eta = prompt ('inserisci età')
 
-    document.getElementById("km").innerHTML = km + "km";
+//  prezzo
+let prezzo = 0.21 * km
 
-    if (isNaN(km)) {
-        document.getElementById("output").innerHTML = "Il valore inserito non è valido, assicurati di inserire solo un valore numerico.";
-        return;
-    }
+// dichiaro una variabile da mostrare
+let output
 
-    // ETA'
-    let eta = parseInt(prompt("Inserisci l'età del passeggero"));
-    console.log(eta + 'anni');
+if(eta < 18){
+    let sconto = prezzo * 20 / 100;
+    prezzo = prezzo - sconto; // prezzo -= sconto (è la stessa cosa)
+    /* prezzo = prezzo * 80 / 100
+    prezzo *= 0.8; (stesso risultato) */
 
-    document.getElementById("eta").innerHTML = eta + "anni";
+    console.log(sconto);
+    console.log(prezzo)
 
-    if (isNaN(eta)) {
-        document.getElementById("output").innerHTML = "Il valore inserito non è valido, assicurati di inserire solo un valore numerico.";
-        return;
-    }
+    output = `Hai diritto ad uno sconto del 20%. Il prezzo del biglietto è di: ${prezzo.toFixed(2)}€`
 
-    // PREZZO 
-    let prezzo = km * 0.21;
-    console.log(prezzo + 'euro');
-
-    // SCONTO
-    if (eta < 18) {
-        prezzo -= prezzo * 20 / 100;
-    }
-
-
-    if (eta >= 65) {
-        prezzo -= prezzo * 40 / 100;
-    }
-
-    // PREZZO FINALE
-    prezzo = (Math.round(prezzo * 100) / 100).toFixed(2);
-
-    document.getElementById("output").innerHTML = prezzo + "€";
 }
+
+else if(eta > 65){
+    let sconto = prezzo * 40 / 100;
+    // prezzo -= sconto
+    prezzo *= 0.6;
+    console.log(prezzo);
+
+    output = `Hai diritto ad uno sconto del 40%. Il prezzo del biglietto è di: ${prezzo.toFixed(2)}€`
+}
+
+else{
+    output = `Il prezzo del biglietto è di: ${prezzo.toFixed(2)}€`
+}
+
+// mostro prezzo finale
+document.getElementById('output').innerHTML = output;
